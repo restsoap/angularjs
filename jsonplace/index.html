@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="Jsonplace">
+
+<head>
+    <title>Hola Mundo con AngularJS</title>
+    <!-- Cargar AngularJS desde CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!--cargamos el controller-->
+    <script src="./JsonplaceList.js"></script>
+
+</head>
+
+<body>
+    <!--Formulario para crear/editar posts-->
+    <div ng-controller="PlaceController">
+
+        <div style="margin-bottom: 50px;">
+            <h2>{{ editing ? 'Editar Post' : 'Crear Nuevo Post' }}</h2>
+            <form ng-submit="editing ? updatePost() : createPost()">
+                <div>
+                    <label for="title">Título:</label>
+                    <input type="text" id="title" ng-model="formPost.title" required>
+                </div>
+                <div>
+                    <label for="body">Contenido:</label>
+                    <textarea id="body" ng-model="formPost.body" required></textarea>
+                </div>
+                <div>
+                    <button type="submit">{{ editing ? 'Actualizar' : 'Crear' }}</button>
+                    <button type="button" ng-click="resetForm()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Contenido</th>
+                    <th>Agregar</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="post in posts">
+                    <td>{{ post.id }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.body }}</td>
+                    <td> <button ng-click="editPost(post)">Editar</button> </td>
+                    <td> <button ng-click="deletePost(post)">Delete</button> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>

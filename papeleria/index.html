@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="categoriesApp">
+<head>
+    <title>Categories API Consumer</title>
+    <!-- Cargar AngularJS desde CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="./PapeleriaController.js"></script>
+</head>
+<body ng-controller="CategoriesController">
+    <h1>CRUD de Categorías</h1>
+    
+    <!-- Formulario para crear/editar categoría -->
+    <div>
+        <h2>{{isEditing ? 'Editar' : 'Crear'}} Categoría</h2>
+        <form ng-submit="saveCategory()">
+            <div>
+                <label>Nombre:</label>
+                <input type="text" ng-model="formData.name" required>
+            </div>
+            <button type="submit">{{isEditing ? 'Actualizar' : 'Crear'}}</button>
+            <button type="button" ng-if="isEditing" ng-click="cancelEdit()">Cancelar</button>
+        </form>
+    </div>
+    
+    <hr>
+    
+    <!-- Mostrar listado de categorías -->
+    <h2>Lista de Categorías</h2>
+    <ul>
+        <li ng-repeat="category in categories">
+            ID: {{category.id}} - Nombre: {{category.name}} 
+            <button ng-click="viewDetails(category.id)">Ver</button>
+            <button ng-click="editCategory(category)">Editar</button>
+            <button ng-click="deleteCategory(category.id)">Eliminar</button>
+        </li>
+    </ul>
+    
+    <!-- Mostrar detalles de categoría seleccionada -->
+    <div ng-if="selectedCategory">
+        <h2>Detalles de la categoría</h2>
+        <p>ID: {{selectedCategory.id}}</p>
+        <p>Nombre: {{selectedCategory.name}}</p>
+        <p>Creado: {{selectedCategory.created_at}}</p>
+        <p>Actualizado: {{selectedCategory.updated_at}}</p>
+    </div>
+    
+   
+</body>
+</html>
